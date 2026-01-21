@@ -1,0 +1,6 @@
+python-telegram-bot==20.7
+requests==2.32.3
+beautifulsoup4==4.12.3
+googlesearch-python==1.2.5
+python-dotenv==1.0.1
+aiohttp==3.9.5
