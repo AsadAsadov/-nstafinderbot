@@ -67,7 +67,7 @@ async def send_or_edit(update: Update, context: ContextTypes.DEFAULT_TYPE, text:
     message_id = get_last_message_id(context)
     if message_id and update.effective_chat:
         try:
-            await context.bot.edit_message_text(
+            await context.application.bot.edit_message_text(
                 chat_id=update.effective_chat.id,
                 message_id=message_id,
                 text=text,
@@ -77,7 +77,11 @@ async def send_or_edit(update: Update, context: ContextTypes.DEFAULT_TYPE, text:
             )
             return
         except Exception:
-            message_id = None
+            logging.warning("Message edit failed; keeping existing message_id.", exc_info=True)
+            return
+
+    if not update.effective_chat:
+        return
 
     sent = await update.effective_chat.send_message(
         text=text,
